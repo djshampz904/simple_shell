@@ -10,6 +10,8 @@
 
 #define BUFFER_SIZE 1024
 
+#define UNUSED(x) (void)(x)
+
 void displayPrompt(void);
 
 char *readLine(void);

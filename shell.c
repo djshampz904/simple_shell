@@ -1,14 +1,14 @@
 #include "shell.h"
 
-int main(int argc, char *argv[]) {
-    char *line;
-    char **args;
-    int status;
-
-    char **paths = getPaths();
+int main(int argc, char *argv[]){
+	char *line, **args;
+	char **paths;
+	int status;
+	UNUSED(argv);
+	
+	paths = getPaths();
 
     if (argc > 1) {
-        // Non-interactive mode
         line = readLine();
         args = splitLine(line);
         status = executeCommand(args, paths);
@@ -16,7 +16,6 @@ int main(int argc, char *argv[]) {
         free(line);
         free(args);
     } else {
-        // Interactive mode
         do {
             displayPrompt();
             line = readLine();

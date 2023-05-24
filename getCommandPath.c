@@ -2,6 +2,8 @@
 
 char *getCommandPath(char *command, char **paths)
 {
+	int i;
+
     char *commandPath = malloc(BUFFER_SIZE * sizeof(char));
     if (!commandPath)
     {
@@ -15,7 +17,7 @@ char *getCommandPath(char *command, char **paths)
         return commandPath;
     }
 
-    for (int i = 0; paths[i] != NULL; i++)
+    for (i = 0; paths[i] != NULL; i++)
     {
         snprintf(commandPath, BUFFER_SIZE, "%s/%s", paths[i], command);
         if (access(commandPath, F_OK) == 0)

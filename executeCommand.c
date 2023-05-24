@@ -3,7 +3,7 @@
 int executeCommand(char **args, char **paths)
 {
     char *commandPath;
-    pid_t childPid, wpid;
+    pid_t childPid;
     int status;
 
     commandPath = getCommandPath(args[0], paths);
@@ -29,6 +29,8 @@ int executeCommand(char **args, char **paths)
     }
     else
     {
+	    pid_t wpid;
+	    UNUSED(wpid);
         do {
             wpid = waitpid(childPid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
