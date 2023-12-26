@@ -1,33 +1,31 @@
 #include "shell.h"
 
-char **splitLine(char *line) {
-    const char *delimiters = " \t\r\n";
-    const int initialSize = 64;
-    int size = initialSize;
-    int position = 0;
-    char **tokens = malloc(size * sizeof(char *));
+char **_splitLine(char *line)
+{
+    int bufsize = TOKEN_BUFSIZE, position = 0;
+    char **tokens = malloc(bufsize * sizeof(char*));
     char *token;
 
     if (!tokens) {
-        fprintf(stderr, "Allocation error\n");
+        fprintf(stderr, "hsh: allocation error\n");
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, delimiters);
+    token = strtok(line, TOKEN_DELIMITERS);
     while (token != NULL) {
         tokens[position] = token;
         position++;
 
-        if (position >= size) {
-            size += initialSize;
-            tokens = realloc(tokens, size * sizeof(char *));
+        if (position >= bufsize) {
+            bufsize += TOKEN_BUFSIZE;
+            tokens = realloc(tokens, bufsize * sizeof(char*));
             if (!tokens) {
-                fprintf(stderr, "Reallocation error\n");
+                fprintf(stderr, "hsh: allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
 
-        token = strtok(NULL, delimiters);
+        token = strtok(NULL, TOKEN_DELIMITERS);
     }
     tokens[position] = NULL;
     return tokens;
